@@ -1,29 +1,27 @@
-
 local line = io.read()
-
 local n, s = line:match("(%d+)%s+(%d+)")
-
-print(n .. "-" .. s)
+n = tonumber(n)
+s = tonumber(s)
 
 local input = io.read()
 
-local vector = {}
--- Dicionario de Numero (menor q o S) -> Quantas vezes apareceu
--- Contador de pares = 0
+local dictionary = {}
+local counter = 0
 
 for element in input:gmatch("%S+") do
-    print(element)
-    -- Se o elemento for maior que o numero
-    --    proxima repeticao
+    local temp = tonumber(element)
 
-    -- Se dicionario.contains(S - element) 
-    --    pares += dicionario[S - element]
-
-    -- Se dicionario.contains(S)
-    --    dicionario[S]++
-    -- Se nao
-    --    dicionario.add(element, 1)
-
+    if temp < s then
+        if dictionary[math.floor(s - temp)] then
+            counter = counter + dictionary[s - temp]
+        end
+    
+        if dictionary[temp] then 
+            dictionary[temp] = dictionary[temp] + 1
+        else
+            dictionary[temp] = 1
+        end
+    end
 end
 
-print("End")
+print(counter)
